@@ -245,7 +245,8 @@ public final class MicrotomeMgr
             } catch (loadErr :LoadError) {
                 throw loadErr;
             } catch (err :Error) {
-                throw new LoadError(reader.data, "Error loading prop", "name", prop.name, err);
+                throw new LoadError(reader.data, "Error loading prop", "name", prop.name)
+                    .initCause(err);
             }
         }
     }
