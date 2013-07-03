@@ -6,7 +6,10 @@ from microtome.page import Page
 from microtome.test.PrimitivePage import PrimitivePage
 # GENERATED IMPORTS END
 
-class RefPage(Page):# GENERATED CONSTRUCTOR START
+# GENERATED CLASS_DECL START
+class RefPage(Page):
+# GENERATED CLASS_DECL END
+# GENERATED CONSTRUCTOR START
     _s_inited = False
     def __init__(self, name):
         super(RefPage, self).__init__(name)
@@ -26,7 +29,3 @@ class RefPage(Page):# GENERATED CONSTRUCTOR START
     def props(self):
         return super(RefPage, self).props + [self._nested, ]
 # GENERATED PROPS END
-
-# GENERATED CLASS_DECL START
-class RefPage(Page):
-# GENERATED CLASS_DECL END
