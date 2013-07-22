@@ -1,0 +1,10 @@
+package com.timconkling.microtome.core;
+
+public interface WritableObject {
+    WritableObject addChild (String name, boolean isList);
+
+    void writeBool (String name, boolean value);
+    void writeInt (String name, int value);
+    void writeNumber (String name, float value);
+    void writeString (String name, String value);
+}
