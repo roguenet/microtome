@@ -2,7 +2,6 @@ package com.timconkling.microtome;
 
 import com.timconkling.microtome.core.LibraryItem;
 import com.timconkling.microtome.core.LibraryItemBase;
-import com.timconkling.microtome.core.Page;
 import com.timconkling.microtome.core.TypeInfo;
 import com.timconkling.microtome.prop.ObjectProp;
 import com.timconkling.microtome.prop.Prop;

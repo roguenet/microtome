@@ -3,16 +3,16 @@ package com.timconkling.microtome.prop;
 import com.timconkling.microtome.MutablePage;
 import com.timconkling.microtome.core.LibraryItemBase;
 
-public final class ObjectProp extends Prop {
+public final class ObjectProp<T> extends Prop<T> {
     public ObjectProp (MutablePage page, PropSpec spec) {
         super(page, spec);
     }
 
-    @Override public Object value () {
+    @Override public T value () {
         return _value;
     }
 
-    @Override public void setValue (Object val) {
+    @Override public void setValue (T val) {
         if (_value != null && _value.equals(val)) {
             return;
         }
@@ -26,5 +26,5 @@ public final class ObjectProp extends Prop {
         }
     }
 
-    protected Object _value;
+    protected T _value;
 }

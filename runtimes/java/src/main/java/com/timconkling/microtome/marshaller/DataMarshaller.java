@@ -12,7 +12,7 @@ public interface DataMarshaller<T> {
     Class<T> valueClass ();
 
     /** @return true if the marshaller handles subclasses of its valueClass */
-    boolean handleSubclasses ();
+    boolean handlesSubclasses ();
 
     /** @return true if this marshaller can read the named value from this given reader. */
     boolean canReadValue (DataReader reader, String name);
@@ -46,7 +46,7 @@ public interface DataMarshaller<T> {
      * Validates a prop's value, possibly using the annotations on the prop.
      * @throws com.timconkling.microtome.error.MicrotomeError on failure.
      */
-    void validateProp (Prop prop);
+    void validateProp (Prop<T> prop);
 
     /** @return a clone of the given data. */
     T cloneData (MicrotomeMgr mgr, T data, TypeInfo type);
