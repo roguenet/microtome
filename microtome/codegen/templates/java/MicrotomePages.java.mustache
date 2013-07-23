@@ -3,8 +3,10 @@
 package {{namespace}};
 
 // GENERATED IMPORTS START
+import java.util.List;
+import java.util.ArrayList;
 {{#page_types}}
-import {{.}};
+import {{qualified}};
 {{/page_types}}
 // GENERATED IMPORTS END
 
@@ -14,14 +16,14 @@ public class MicrotomePages
 // GENERATED CLASS_INTRO END
 
 // GENERATED FUNCTIONS START
-    public static java.util.List<Class<?>> pageClasses () { return PAGE_CLASSES; }
+    public static List<Class<?>> pageClasses () { return PAGE_CLASSES; }
 // GENERATED FUNCTIONS END
 
 // GENERATED STATICS START
-    protected static final java.util.List<Class<?>> PAGE_CLASSES = new java.util.ArrayList<Class<?>>();
+    protected static final List<Class<?>> PAGE_CLASSES = new ArrayList<Class<?>>();
     static {
     {{#page_types}}
-        PAGE_CLASSES.add({{.}}.class);
+        PAGE_CLASSES.add({{classname}}.class);
     {{/page_types}}
     }
 // GENERATED STATICS END

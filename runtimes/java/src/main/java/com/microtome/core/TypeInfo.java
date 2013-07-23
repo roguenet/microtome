@@ -1,12 +1,10 @@
 package com.microtome.core;
 
-import java.util.List;
-
 public class TypeInfo {
-    public static TypeInfo fromClasses (List<Class<?>> classes) {
+    public static TypeInfo fromClasses (Class<?>[] classes) {
         TypeInfo last = null;
-        for (int ii = classes.size() - 1; ii >= 0; ii--) {
-            Class<?> clazz = classes.get(ii);
+        for (int ii = classes.length - 1; ii >= 0; ii--) {
+            Class<?> clazz = classes[ii];
             last = new TypeInfo(clazz, last);
         }
         return last;

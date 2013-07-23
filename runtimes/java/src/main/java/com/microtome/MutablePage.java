@@ -33,7 +33,7 @@ public class MutablePage extends LibraryItemBase implements Page {
 
     @Override public Object childNamed (String name) {
         Prop prop = Util.getProp(this, name);
-        return prop == null || !(prop instanceof ObjectProp) ? null : ((ObjectProp)prop).value();
+        return prop == null || !(prop instanceof ObjectProp) ? null : prop.value();
     }
 
     public List<Prop> props () {

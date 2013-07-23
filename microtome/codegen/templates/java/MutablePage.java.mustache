@@ -24,23 +24,22 @@ public class {{class_name}} extends {{superclass}}
 // GENERATED PROPS START
     {{#props}}
 {{#value_type.is_pageref}}
-    public {{value_type.mutable_name}} {{mutable_name}} () { PageRef ref = _{{name}}.value; return (ref != null ? ref.page : null); }
-    public {{value_type.name}} {{name}} () { return this.{{mutable_name}}; }
-    public void set_{{name}} ({{value_type.name}} val ) { _{{name}}.value = (val != null ? PageRef.fromPage(val) : null); }
+    public {{value_type.mutable_name}} {{mutable_name}} () { PageRef ref = (PageRef)_{{name}}.value(); return ({{value_type.mutable_name}})(ref != null ? ref.page() : null); }
+    public {{value_type.name}} {{name}} () { return this.{{mutable_name}}(); }
+    public void set_{{name}} ({{value_type.name}} val ) { _{{name}}.setValue(val != null ? PageRef.fromPage(val) : null); }
 {{/value_type.is_pageref}}
 {{^value_type.is_pageref}}
 {{#value_type.is_mutable}}
-    public {{value_type.mutable_name}} {{mutable_name}} () { return _{{name}}.value; }
+    public {{value_type.mutable_name}} {{mutable_name}} () { return ({{value_type.mutable_name}})_{{name}}.value(); }
 {{/value_type.is_mutable}}
-    public {{value_type.name}} {{name}} () { return _{{name}}.value; }
-    public void set_{{name}} ({{value_type.name}} val) { _{{name}}.value = val; }
+    public {{value_type.name}} {{name}} () { return ({{value_type.name}})_{{name}}.value(); }
+    public void set_{{name}} ({{value_type.name}} val) { _{{name}}.setValue(val); }
 {{/value_type.is_pageref}}
     {{/props}}
 
-    @Override public java.util.List<Prop> props () {
-        java.util.List<Prop> props = super.props();
-        {{#props}}props.add(_{{name}});
-        {{/props}}
+    @Override public List<Prop> props () {
+        List<Prop> props = super.props();{{#props}}
+        props.add(_{{name}});{{/props}}
         return props;
     }
 
@@ -59,7 +58,7 @@ public class {{class_name}} extends {{superclass}}
 
 // GENERATED STATICS START
     {{#props}}
-    protected static final PropSpec s_{{name}}Spec = new PropSpec("{{name}}", {{annotation_text}}, new Class<?>[]{{#value_type}}{ {{#all_typenames}}{{.}}, {{/all_typenames}}}{{/value_type}});
+    protected static final PropSpec s_{{name}}Spec = new PropSpec("{{name}}", {{annotation_text}}, new Class<?>[]{{#value_type}}{ {{#all_typenames}}{{.}}.class, {{/all_typenames}}}{{/value_type}});
     {{/props}}
 // GENERATED STATICS END
 

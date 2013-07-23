@@ -3,16 +3,16 @@ package com.microtome.prop;
 import com.microtome.MutablePage;
 import com.microtome.core.LibraryItemBase;
 
-public final class ObjectProp<T> extends Prop<T> {
+public final class ObjectProp extends Prop<Object> {
     public ObjectProp (MutablePage page, PropSpec spec) {
         super(page, spec);
     }
 
-    @Override public T value () {
+    @Override public Object value () {
         return _value;
     }
 
-    @Override public void setValue (T val) {
+    @Override public void setValue (Object val) {
         if (_value != null && _value.equals(val)) {
             return;
         }
@@ -26,5 +26,5 @@ public final class ObjectProp<T> extends Prop<T> {
         }
     }
 
-    protected T _value;
+    protected Object _value;
 }

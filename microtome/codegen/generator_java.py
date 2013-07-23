@@ -10,12 +10,13 @@ import microtome.codegen.util as util
 BASE_PAGE_CLASS = "com.microtome.MutablePage"
 BASE_PAGE_INTERFACE = "com.microtome.Page"
 
+# Wrapped types so we can .class in the templates
 JAVA_TYPENAMES = {
-    s.BoolType: "boolean",
-    s.IntType: "int",
-    s.FloatType: "float",
+    s.BoolType: "Boolean",
+    s.IntType: "Integer",
+    s.FloatType: "Float",
     s.StringType: "String",
-    s.ListType: "List",
+    s.ListType: "java.util.List",
     s.PageRefType: "com.microtome.core.PageRef",
     s.TomeType: "com.microtome.Tome"
 }
@@ -52,7 +53,7 @@ def generate_library(lib):
     # "escape" param disables html-escaping
     stache = pystache.Renderer(search_dirs=TEMPLATES_DIR, escape=lambda u: u)
 
-    page_types = [util.qualified_name(spec.namespace, mutable_page_name(spec.name)) for spec in lib.pages]
+    page_types = [PageType(mutable_page_name(spec.name), util.qualified_name(spec.namespace, mutable_page_name(spec.name))) for spec in lib.pages]
 
     library_view = {
         "namespace": lib.namespace,
@@ -87,7 +88,7 @@ def is_page_name(lib, the_type):
     return (util.strip_namespace(the_type) in [page_spec.name for page_spec in lib.pages])
 
 
-def get_as3_typename(lib, the_type, mutable=False):
+def get_java_typename(lib, the_type, mutable=False):
     '''converts a microtome typename to a Java typename'''
     if mutable and the_type in JAVA_MUTABLE_TYPENAMES:
         return JAVA_MUTABLE_TYPENAMES[the_type]
@@ -115,6 +116,10 @@ def mutable_page_name(page_name):
     return util.qualified_name(util.get_namespace(page_name),
                                "Mutable" + util.strip_namespace(page_name))
 
+class PageType(object):
+    def __init__(self, classname, qualified):
+        self.classname = classname;
+        self.qualified = qualified;
 
 class AnnotationView(object):
     def __init__(self, lib, annotation):
@@ -168,13 +173,13 @@ class TypeView(object):
 
     def get_qualified_name(self, mutable):
         if self.type.name == s.PageRefType:
-            return get_as3_typename(self.lib, self.type.subtype.name, mutable)
+            return get_java_typename(self.lib, self.type.subtype.name, mutable)
         else:
-            return get_as3_typename(self.lib, self.type.name, mutable)
+            return get_java_typename(self.lib, self.type.name, mutable)
 
     def qualified_typenames(self, mutable):
         '''namespace-qualified typenames of all types used by this Type'''
-        return [get_as3_typename(self.lib, name, mutable) for name in s.type_spec_to_list(self.type)]
+        return [get_java_typename(self.lib, name, mutable) for name in s.type_spec_to_list(self.type)]
 
 
 class PropView(object):
@@ -204,14 +209,14 @@ class PropView(object):
         # avoid obnoxious mustache markup
         if not self.has_annos:
             return "null"
-        out = "{ "
+        out = "PropSpec.annotations("
         needs_separator = False
         for a in self.annotations:
             if needs_separator:
                 out += ", "
-            out += '"' + a.name + '"' + ": " + str(a.value)
+            out += '"' + a.name + '"' + ", " + str(a.value)
             needs_separator = True
-        out += " }"
+        out += ")"
         return out
 
     @property
@@ -273,6 +278,7 @@ class PageView(object):
         imp_list = [prop.qualified_typename for prop in self.props]
         # our own superclass
         imp_list.append(self.qualified_superclass)
+        imp_list.append("java.util.List")
         # prop value typenames
         for prop in self.props:
             imp_list += prop.value_type.qualified_typenames(False)

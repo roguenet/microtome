@@ -12,10 +12,7 @@ import java.util.Map;
 public class MutableTome extends LibraryItemBase implements Tome {
     public MutableTome (String name, Class<?> pageClass) {
         super(name);
-        List<Class<?>> classes = new ArrayList<Class<?>>(2);
-        classes.add(MutableTome.class);
-        classes.add(pageClass);
-        _type = TypeInfo.fromClasses(classes);
+        _type = TypeInfo.fromClasses(new Class<?>[]{ MutableTome.class, pageClass });
     }
 
     @Override public TypeInfo typeInfo () {
