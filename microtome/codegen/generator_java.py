@@ -7,8 +7,8 @@ import microtome.codegen.spec as s
 import microtome.codegen.util as util
 
 
-BASE_PAGE_CLASS = "com.timconkling.microtome.MutablePage"
-BASE_PAGE_INTERFACE = "com.timconkling.microtome.Page"
+BASE_PAGE_CLASS = "com.microtome.MutablePage"
+BASE_PAGE_INTERFACE = "com.microtome.Page"
 
 JAVA_TYPENAMES = {
     s.BoolType: "boolean",
@@ -16,27 +16,27 @@ JAVA_TYPENAMES = {
     s.FloatType: "float",
     s.StringType: "String",
     s.ListType: "List",
-    s.PageRefType: "com.timconkling.microtome.core.PageRef",
-    s.TomeType: "com.timconkling.microtome.Tome"
+    s.PageRefType: "com.microtome.core.PageRef",
+    s.TomeType: "com.microtome.Tome"
 }
 
 JAVA_MUTABLE_TYPENAMES = {
-    s.TomeType: "com.timconkling.microtome.MutableTome"
+    s.TomeType: "com.microtome.MutableTome"
 }
 
 PRIMITIVE_PROPNAMES = {
-    s.BoolType: "com.timconkling.microtome.prop.BoolProp",
-    s.IntType: "com.timconkling.microtome.prop.IntProp",
-    s.FloatType: "com.timconkling.microtome.prop.NumberProp"
+    s.BoolType: "com.microtome.prop.BoolProp",
+    s.IntType: "com.microtome.prop.IntProp",
+    s.FloatType: "com.microtome.prop.NumberProp"
 }
 
-OBJECT_PROPNAME = "com.timconkling.microtome.prop.ObjectProp"
+OBJECT_PROPNAME = "com.microtome.prop.ObjectProp"
 
 LIBRARY_FILENAME = "MicrotomePages.java"
 TEMPLATES_DIR = util.abspath("templates/java")
 
 # stuff we always import
-BASE_CLASS_IMPORTS = set(["com.timconkling.microtome.prop.Prop", "com.timconkling.microtome.prop.PropSpec"])
+BASE_CLASS_IMPORTS = set(["com.microtome.prop.Prop", "com.microtome.prop.PropSpec"])
 BASE_INTERFACE_IMPORTS = set()
 # stuff we never import (packageless typenames: Boolean, int, etc)
 DISCARD_IMPORTS = set([name for name in JAVA_TYPENAMES.values() if util.get_namespace(name) == ""])
