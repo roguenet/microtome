@@ -10,14 +10,15 @@ import logging
 import microtome.codegen.sourcemerger as sourcemerger
 import microtome.codegen.parser as parser
 import microtome.codegen.spec as s
-import microtome.codegen.generator_objc as generator_objc
-import microtome.codegen.generator_as as generator_as
-import microtome.codegen.generator_py as generator_py
+import microtome.codegen.generator_objc as gen_objc
+import microtome.codegen.generator_as as gen_as
+import microtome.codegen.generator_py as gen_py
+import microtome.codegen.generator_java as gen_java
 
 LOG = logging.getLogger(__name__)
 EXTENSION = "microtome"
 INPUT_FILE = re.compile(r'.*\.%s$' % EXTENSION)
-GENERATORS = {"objc": generator_objc, "as": generator_as, "py": generator_py}
+GENERATORS = {"objc": gen_objc, "as": gen_as, "py": gen_py, "java": gen_java}
 
 
 def main():

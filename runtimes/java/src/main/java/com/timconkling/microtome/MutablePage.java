@@ -7,7 +7,6 @@ import com.timconkling.microtome.prop.ObjectProp;
 import com.timconkling.microtome.prop.Prop;
 import com.timconkling.microtome.util.Util;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MutablePage extends LibraryItemBase implements Page {
@@ -38,7 +37,7 @@ public class MutablePage extends LibraryItemBase implements Page {
     }
 
     public List<Prop> props () {
-        return Collections.emptyList();
+        return new ArrayList<Prop>();
     }
 
     protected TypeInfo _typeInfo; // lazy init

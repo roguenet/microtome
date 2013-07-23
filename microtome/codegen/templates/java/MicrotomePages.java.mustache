@@ -1,0 +1,31 @@
+{{header}}
+
+package {{namespace}};
+
+// GENERATED IMPORTS START
+{{#page_types}}
+import {{.}};
+{{/page_types}}
+// GENERATED IMPORTS END
+
+// GENERATED CLASS_INTRO START
+public class MicrotomePages
+{
+// GENERATED CLASS_INTRO END
+
+// GENERATED FUNCTIONS START
+    public static java.util.List<Class<?>> pageClasses () { return PAGE_CLASSES; }
+// GENERATED FUNCTIONS END
+
+// GENERATED STATICS START
+    protected static final java.util.List<Class<?>> PAGE_CLASSES = new java.util.ArrayList<Class<?>>();
+    static {
+    {{#page_types}}
+        PAGE_CLASSES.add({{.}}.class);
+    {{/page_types}}
+    }
+// GENERATED STATICS END
+
+// GENERATED CLASS_OUTRO START
+}
+// GENERATED CLASS_OUTRO END
