@@ -38,19 +38,35 @@ public class MTJsonObject extends MTJsonElement implements WritableObject {
     }
 
     @Override public boolean getBool (String name) {
-        return _value.get(name).getAsBoolean();
+        JsonElement elem = _value.get(name);
+        if (elem == null) {
+            throw new MicrotomeError("Value missing! [name=" + name + "]");
+        }
+        return elem.getAsBoolean();
     }
 
     @Override public int getInt (String name) {
-        return _value.get(name).getAsInt();
+        JsonElement elem = _value.get(name);
+        if (elem == null) {
+            throw new MicrotomeError("Value missing! [name=" + name + "]");
+        }
+        return elem.getAsInt();
     }
 
     @Override public double getNumber (String name) {
-        return _value.get(name).getAsDouble();
+        JsonElement elem = _value.get(name);
+        if (elem == null) {
+            throw new MicrotomeError("Value missing! [name=" + name + "]");
+        }
+        return elem.getAsDouble();
     }
 
     @Override public String getString (String name) {
-        return _value.get(name).getAsString();
+        JsonElement elem = _value.get(name);
+        if (elem == null) {
+            throw new MicrotomeError("Value missing! [name=" + name + "]");
+        }
+        return elem.getAsString();
     }
 
     @Override public WritableObject addChild (String name, boolean isList) {
