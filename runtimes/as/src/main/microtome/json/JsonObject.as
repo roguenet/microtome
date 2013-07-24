@@ -47,6 +47,9 @@ public class JsonObject extends JsonElement
 
     public function getString (name :String) :String {
         // coerce any primitive value into a string
+        if (_value[name] === undefined) {
+            throw new Error("Value is missing [" + name + "]");
+        }
         if (!isPrimitive(_value[name])) {
             throw new Error("Complex value [" + name + "]");
         }
