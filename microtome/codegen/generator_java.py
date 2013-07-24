@@ -14,7 +14,7 @@ BASE_PAGE_INTERFACE = "com.microtome.Page"
 JAVA_TYPENAMES = {
     s.BoolType: "Boolean",
     s.IntType: "Integer",
-    s.FloatType: "Float",
+    s.FloatType: "Double",
     s.StringType: "String",
     s.ListType: "java.util.List",
     s.PageRefType: "com.microtome.core.PageRef",
