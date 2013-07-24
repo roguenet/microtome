@@ -36,7 +36,7 @@ public class Library implements MicrotomeItem {
         // E.g. level1.baddies.big_boss
 
         LibraryItem item = null;
-        for (String name : qualifiedName.split(Defs.NAME_SEPARATOR)) {
+        for (String name : Defs.NAME_SEP_PATTERN.split(qualifiedName)) {
             Object child = item != null ? item.childNamed(name) : _items.get(name);
             if (!(child instanceof LibraryItem)) {
                 return null;
