@@ -54,9 +54,9 @@ public class JsonObject extends JsonElement
     }
 
     public function addChild (name :String, isList :Boolean = false) :WritableObject {
-        return isList ?
-            _value[name] = new JsonArray(name, []) :
-            _value[name] = new JsonObject(name, {});
+        var elem :* = isList ? [] : {};
+        _value[name] = elem;
+        return isList ? new JsonArray(name, elem) : new JsonObject(name, elem);
     }
 
     public function writeBool (name :String, val :Boolean) :void {
