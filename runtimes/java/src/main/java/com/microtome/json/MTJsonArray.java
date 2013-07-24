@@ -13,6 +13,7 @@ import java.util.List;
 public class MTJsonArray extends MTJsonElement implements WritableObject {
     public MTJsonArray (String name, JsonArray value) {
         super(name);
+        if (value == null) throw new MicrotomeError("Value is null! [name=" + name + "]");
         _value = value;
     }
 

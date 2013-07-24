@@ -2,6 +2,7 @@ package com.microtome.json;
 
 import com.google.gson.JsonElement;
 import com.microtome.core.ReadableObject;
+import com.microtome.error.MicrotomeError;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class MTJsonPrimitive extends MTJsonElement {
     public MTJsonPrimitive (JsonElement value) {
         super(null);
+        if (value == null) throw new MicrotomeError("Value is null!");
         _value = value;
     }
 

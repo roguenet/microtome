@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.microtome.core.ReadableObject;
 import com.microtome.core.WritableObject;
+import com.microtome.error.MicrotomeError;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class MTJsonObject extends MTJsonElement implements WritableObject {
     public MTJsonObject (String name, JsonObject value) {
         super(name);
+        if (value == null) throw new MicrotomeError("Value is null! [name=" + name + "]");
         _value = value;
     }
 
