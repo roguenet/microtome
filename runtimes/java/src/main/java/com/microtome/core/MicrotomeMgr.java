@@ -44,7 +44,7 @@ public final class MicrotomeMgr implements MicrotomeCtx {
 
     @Override public void registerPageClasses (List<Class<?>> classes) {
         for (Class<?> clazz : classes) {
-            if (MutablePage.class.isAssignableFrom(clazz)) {
+            if (!MutablePage.class.isAssignableFrom(clazz)) {
                 throw new MicrotomeError("Class must extend MutablePage [pageClass=" +
                     clazz.getSimpleName() + "]");
             }
