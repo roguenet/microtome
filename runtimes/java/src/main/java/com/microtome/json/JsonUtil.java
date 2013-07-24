@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtil {
-    /** Creates ReadableObjects from a List of JsonObjects */
-    public static List<ReadableObject> createReaders (List<JsonObject> jsons) {
+    /** Creates ReadableObjects from an Array of JsonObjects */
+    public static List<ReadableObject> createReaders (JsonObject... jsons) {
         List<ReadableObject> readers = new ArrayList<ReadableObject>();
         for (JsonObject json : jsons) {
             readers.add(new MTJsonObject("microtome", json));
