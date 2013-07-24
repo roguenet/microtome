@@ -28,8 +28,8 @@ public class MTJsonPrimitive extends MTJsonElement {
         return _value.getAsInt();
     }
 
-    @Override public float getNumber (String name) {
-        return _value.getAsFloat();
+    @Override public double getNumber (String name) {
+        return _value.getAsDouble();
     }
 
     @Override public String getString (String name) {

@@ -43,8 +43,8 @@ public class MTJsonObject extends MTJsonElement implements WritableObject {
         return _value.get(name).getAsInt();
     }
 
-    @Override public float getNumber (String name) {
-        return _value.get(name).getAsFloat();
+    @Override public double getNumber (String name) {
+        return _value.get(name).getAsDouble();
     }
 
     @Override public String getString (String name) {
@@ -66,7 +66,7 @@ public class MTJsonObject extends MTJsonElement implements WritableObject {
         _value.addProperty(name, value);
     }
 
-    @Override public void writeNumber (String name, float value) {
+    @Override public void writeNumber (String name, double value) {
         _value.addProperty(name, value);
     }
 

@@ -54,8 +54,8 @@ public class PropSpec {
             return _value instanceof Integer ? ((Number)_value).intValue() : defaultVal;
         }
 
-        @Override public float numberValue (float defaultVal) {
-            return _value instanceof Float ? ((Number)_value).floatValue() : defaultVal;
+        @Override public double numberValue (double defaultVal) {
+            return _value instanceof Double ? ((Number)_value).doubleValue() : defaultVal;
         }
 
         @Override public String stringValue (String defaultVal) {

@@ -39,7 +39,7 @@ public class MTJsonArray extends MTJsonElement implements WritableObject {
         throw new MicrotomeError("getInt not supported on JsonArray");
     }
 
-    @Override public float getNumber (String name) {
+    @Override public double getNumber (String name) {
         throw new MicrotomeError("getNumber not supported on JsonArray");
     }
 
@@ -62,7 +62,7 @@ public class MTJsonArray extends MTJsonElement implements WritableObject {
         _value.add(new JsonPrimitive(value));
     }
 
-    @Override public void writeNumber (String name, float value) {
+    @Override public void writeNumber (String name, double value) {
         _value.add(new JsonPrimitive(value));
     }
 

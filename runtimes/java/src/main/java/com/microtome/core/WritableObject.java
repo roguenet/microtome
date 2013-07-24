@@ -5,6 +5,6 @@ public interface WritableObject {
 
     void writeBool (String name, boolean value);
     void writeInt (String name, int value);
-    void writeNumber (String name, float value);
+    void writeNumber (String name, double value);
     void writeString (String name, String value);
 }

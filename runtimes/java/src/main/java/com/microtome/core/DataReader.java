@@ -68,7 +68,7 @@ public class DataReader {
         return hasValue(name) ? requireInt(name) : defaultVal;
     }
 
-    public float getNumber (String name, float defaultVal) {
+    public double getNumber (String name, double defaultVal) {
         return hasValue(name) ? requireNumber(name) : defaultVal;
     }
 
@@ -80,11 +80,11 @@ public class DataReader {
         return hasValue(name) ? requireInts(name, count, delim) : defaultVal;
     }
 
-    public List<Float> getNumbers (String name) {
-        return getNumbers(name, 0, ",", new ArrayList<Float>());
+    public List<Double> getNumbers (String name) {
+        return getNumbers(name, 0, ",", new ArrayList<Double>());
     }
 
-    public List<Float> getNumbers (String name, int count, String delim, List<Float> defaultVal) {
+    public List<Double> getNumbers (String name, int count, String delim, List<Double> defaultVal) {
         return hasValue(name) ? requireNumbers(name, count, delim) : defaultVal;
     }
 
@@ -100,7 +100,7 @@ public class DataReader {
         return _data.getInt(name);
     }
 
-    public float requireNumber (String name) {
+    public double requireNumber (String name) {
         return _data.getNumber(name);
     }
 
@@ -108,7 +108,7 @@ public class DataReader {
         return requireList(name, count, delim, INT_PARSER);
     }
 
-    public List<Float> requireNumbers (String name, int count, String delim) {
+    public List<Double> requireNumbers (String name, int count, String delim) {
         return requireList(name, count, delim, FLOAT_PARSER);
     }
 
@@ -139,10 +139,10 @@ public class DataReader {
         }
     };
 
-    protected static final Parser<Float> FLOAT_PARSER = new Parser<Float>() {
-        @Override public Float parse (String value) {
+    protected static final Parser<Double> FLOAT_PARSER = new Parser<Double>() {
+        @Override public Double parse (String value) {
             try {
-                return Float.parseFloat(value);
+                return Double.parseDouble(value);
             } catch (NumberFormatException nfe) {
                 throw new MicrotomeError("Value is not a number [" + value + "]");
             }

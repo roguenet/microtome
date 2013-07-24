@@ -2,18 +2,18 @@ package com.microtome.prop;
 
 import com.microtome.MutablePage;
 
-public class NumberProp extends Prop<Float> {
+public class NumberProp extends Prop<Double> {
     public NumberProp (MutablePage page, PropSpec spec) {
         super(page, spec);
     }
 
-    @Override public Float value () {
+    @Override public Double value () {
         return _value;
     }
 
-    @Override public void setValue (Float val) {
+    @Override public void setValue (Double val) {
         _value = val;
     }
 
-    protected float _value;
+    protected double _value;
 }

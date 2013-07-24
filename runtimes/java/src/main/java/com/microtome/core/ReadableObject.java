@@ -10,6 +10,6 @@ public interface ReadableObject {
     boolean hasValue (String name);
     boolean getBool (String name);
     int getInt (String name);
-    float getNumber (String name);
+    double getNumber (String name);
     String getString (String name);
 }
