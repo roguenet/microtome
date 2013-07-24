@@ -12,7 +12,7 @@ public class Util {
 
     public static boolean validLibraryItemName (String name) {
         // library items cannot have '.' in the name
-        return name.length() > 0 && !name.contains(Defs.NAME_SEPARATOR);
+        return name != null && name.length() > 0 && !name.contains(Defs.NAME_SEPARATOR);
     }
 
     public static Prop getProp (MutablePage page, String name) {
