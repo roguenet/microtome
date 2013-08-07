@@ -1,5 +1,6 @@
 package microtome.json {
 
+import microtome.core.Defs;
 import microtome.core.ReadableObject;
 import microtome.core.WritableObject;
 
@@ -8,6 +9,17 @@ public class JsonObject extends JsonElement
 {
     public function JsonObject (name :String, value :Object) {
         super(name, value);
+    }
+
+    override public function get name () :String {
+        if (_name != null) return _name;
+        // if we have no name, default to something sensible and valid, mimicking the built-in names
+        // in XML MT docs.
+        if (hasValue(Defs.PAGE_TYPE_ATTR)) {
+            var type :String = getString(Defs.PAGE_TYPE_ATTR);
+            return type.substring(0, 1).toLowerCase() + type.substring(1);
+        }
+        return super.name;
     }
 
     public function get children () :Vector.<ReadableObject> {
