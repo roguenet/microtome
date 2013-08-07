@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Wraps a Readableelement and provides additional convenience functions. */
+/** Wraps a ReadableElement and provides additional convenience functions. */
 public class DataReader {
     public DataReader (ReadableObject data) {
         _data = data;
