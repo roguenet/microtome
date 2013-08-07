@@ -3,6 +3,7 @@ package com.microtome.json;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.microtome.core.Defs;
 import com.microtome.core.ReadableObject;
 import com.microtome.core.WritableObject;
 import com.microtome.error.MicrotomeError;
@@ -13,8 +14,19 @@ import java.util.Map;
 public class MTJsonObject extends MTJsonElement implements WritableObject {
     public MTJsonObject (String name, JsonObject value) {
         super(name);
-        if (value == null) throw new MicrotomeError("Value is null! [name=" + name + "]");
+        if (value == null) throw new MicrotomeError("Value is null! [name=" + name() + "]");
         _value = value;
+    }
+
+    @Override public String name () {
+        if (_name != null) return _name;
+        // if we have no name, default to something sensible and valid, mimicking the built-in names
+        // in XML MT docs.
+        if (hasValue(Defs.PAGE_TYPE_ATTR)) {
+            String type = getString(Defs.PAGE_TYPE_ATTR);
+            return type.substring(0, 1).toLowerCase() + type.substring(1);
+        }
+        return super.name();
     }
 
     @Override public List<ReadableObject> children () {
