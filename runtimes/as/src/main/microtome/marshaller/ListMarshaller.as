@@ -39,7 +39,7 @@ public class ListMarshaller extends ObjectMarshaller
         const list :Array = obj as Array;
         const childMarshaller :DataMarshaller = mgr.requireDataMarshaller(type.subtype.clazz);
         for each (var child :Object in list) {
-            var name :String = (child is MicrotomeItem ? MicrotomeItem(child).name : "item");
+            name = (child is MicrotomeItem ? MicrotomeItem(child).name : "item");
             childMarshaller.writeValue(mgr, childMarshaller.getValueWriter(writer, name), child, name, type.subtype);
         }
     }
