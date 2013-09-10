@@ -16,7 +16,7 @@ public class Library implements MicrotomeItem {
     }
 
     @Override public Library library () {
-        return null;
+        return this;
     }
 
     @Override public MicrotomeItem parent () {
