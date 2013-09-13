@@ -51,11 +51,11 @@ public class PropSpec {
         }
 
         @Override public int intValue (int defaultVal) {
-            return _value instanceof Integer ? ((Number)_value).intValue() : defaultVal;
+            return _value instanceof Number ? ((Number)_value).intValue() : defaultVal;
         }
 
         @Override public double numberValue (double defaultVal) {
-            return _value instanceof Double ? ((Number)_value).doubleValue() : defaultVal;
+            return _value instanceof Number ? ((Number)_value).doubleValue() : defaultVal;
         }
 
         @Override public String stringValue (String defaultVal) {
