@@ -39,7 +39,7 @@ public final class MicrotomeMgr implements MicrotomeCtx {
     }
 
     public Library library () {
-        return _loadTask.library();
+        return _loadTask.get().library();
     }
 
     @Override public void registerPageClasses (List<Class<?>> classes) {
@@ -94,19 +94,20 @@ public final class MicrotomeMgr implements MicrotomeCtx {
     }
 
     public void load (Library library, List<ReadableObject> dataElements) {
-        if (_loadTask != null) {
+        LoadTask loadTask = _loadTask.get();
+        if (loadTask != null) {
             throw new MicrotomeError("Load already in progress");
         }
-        _loadTask = new LoadTask(library);
+        _loadTask.set(loadTask = new LoadTask(library));
 
         try {
             for (ReadableObject elt : dataElements) {
                 for (DataReader itemReader : new DataReader(elt).children()) {
-                    _loadTask.addItem(loadLibraryItem(itemReader));
+                    loadTask.addItem(loadLibraryItem(itemReader));
                 }
             }
 
-            addLoadedItems(_loadTask);
+            addLoadedItems(loadTask);
 
             // Resolve all templated items:
             // Iterate through the array as many times as it takes to resolve all template-dapendent
@@ -114,18 +115,18 @@ public final class MicrotomeMgr implements MicrotomeCtx {
             boolean foundTemplate = true;
             while (foundTemplate) {
                 foundTemplate = false;
-                for (int ii = 0; ii < _loadTask.pendingTemplatePages.size(); ii++) {
-                    TemplatedPage tPage = _loadTask.pendingTemplatePages.get(ii);
+                for (int ii = 0; ii < loadTask.pendingTemplatePages.size(); ii++) {
+                    TemplatedPage tPage = loadTask.pendingTemplatePages.get(ii);
                     LibraryItem tmpl =
-                        _loadTask.library().getItemWithQualifiedName(tPage.templateName());
+                        loadTask.library().getItemWithQualifiedName(tPage.templateName());
                     if (tmpl != null && !(tmpl instanceof MutablePage)) {
                         throw new MicrotomeError(
                             "Library item expected to be a MutablePage [item=" +
                                 tmpl.getClass().getSimpleName() + "]");
                     }
-                    if (tmpl != null && !_loadTask.isPendingTemplatePage((MutablePage)tmpl)) {
+                    if (tmpl != null && !loadTask.isPendingTemplatePage((MutablePage)tmpl)) {
                         loadPageProps(tPage.page(), tPage.reader(), (MutablePage)tmpl);
-                        _loadTask.pendingTemplatePages.remove(ii);
+                        loadTask.pendingTemplatePages.remove(ii);
                         foundTemplate = true;
                         break;
                     }
@@ -133,19 +134,19 @@ public final class MicrotomeMgr implements MicrotomeCtx {
             }
 
             // throw an error if we're missing a template
-            if (_loadTask.pendingTemplatePages.size() > 0) {
-                TemplatedPage missing = _loadTask.pendingTemplatePages.get(0);
+            if (loadTask.pendingTemplatePages.size() > 0) {
+                TemplatedPage missing = loadTask.pendingTemplatePages.get(0);
                 throw new MicrotomeError("Missing template [name=" + missing.templateName() + "]");
             }
 
             // finalize the load, which resolves all PageRefs
-            finalizeLoadedItems(_loadTask);
+            finalizeLoadedItems(loadTask);
 
         } catch (RuntimeException re) {
-            abortLoad(_loadTask);
+            abortLoad(loadTask);
             throw re;
         } finally {
-            _loadTask = null;
+            _loadTask.set(null);
         }
     }
 
@@ -182,7 +183,7 @@ public final class MicrotomeMgr implements MicrotomeCtx {
 
         if (reader.hasValue(Defs.TEMPLATE_ATTR)) {
             // if this page has a template, we defer loading until the end
-            _loadTask.pendingTemplatePages.add(new TemplatedPage(page, reader));
+            _loadTask.get().pendingTemplatePages.add(new TemplatedPage(page, reader));
         } else {
             loadPageProps(page, reader, null);
         }
@@ -359,5 +360,5 @@ public final class MicrotomeMgr implements MicrotomeCtx {
     protected final Map<String, Class<?>> _pageClasses;
     protected final Map<Class<?>, DataMarshaller<?>> _dataMarshallers;
 
-    protected LoadTask _loadTask;
+    protected ThreadLocal<LoadTask> _loadTask;
 }
