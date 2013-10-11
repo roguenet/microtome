@@ -360,5 +360,5 @@ public final class MicrotomeMgr implements MicrotomeCtx {
     protected final Map<String, Class<?>> _pageClasses;
     protected final Map<Class<?>, DataMarshaller<?>> _dataMarshallers;
 
-    protected ThreadLocal<LoadTask> _loadTask;
+    protected ThreadLocal<LoadTask> _loadTask = new ThreadLocal<LoadTask>();
 }
