@@ -283,7 +283,8 @@ public final class MicrotomeMgr implements MicrotomeCtx {
         } else if (prop.nullable()) {
             prop.setValue(null);
         } else {
-            throw new MicrotomeError("Missing required value of child [name=" + name + "]");
+            throw new MicrotomeError("Missing required value of child [child=" + name + ", page=" +
+                pageReader.name() + "]");
         }
     }
 
