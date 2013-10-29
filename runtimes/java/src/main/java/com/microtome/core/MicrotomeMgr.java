@@ -66,10 +66,11 @@ public final class MicrotomeMgr implements MicrotomeCtx {
             for (DataMarshaller<?> candidate : _dataMarshallers.values()) {
                 if (candidate.handlesSubclasses() &&
                     candidate.valueClass().isAssignableFrom(clazz)) {
-                    _dataMarshallers.put(clazz, marshaller = (DataMarshaller<? super T>)candidate);
+                    marshaller = (DataMarshaller<? super T>)candidate;
                     break;
                 }
             }
+            if (marshaller != null) _dataMarshallers.put(clazz, marshaller);
         }
 
         if (marshaller == null) {
