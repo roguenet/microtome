@@ -74,7 +74,12 @@ public final class MicrotomeMgr implements MicrotomeCtx {
         }
 
         if (marshaller == null) {
-            throw new MicrotomeError("No DataMarshaller for '" + clazz.getSimpleName() + "'");
+            StringBuilder marshallers = new StringBuilder();
+            for (Class<?> key : _dataMarshallers.keySet()) {
+                marshallers.append(key.getCanonicalName()).append(", ");
+            }
+            throw new MicrotomeError("No DataMarshaller for '" + clazz.getSimpleName() + "' [" +
+                marshallers + "]");
         }
         return marshaller;
     }
@@ -259,7 +264,7 @@ public final class MicrotomeMgr implements MicrotomeCtx {
 
     protected <T> void loadPageProp (Prop<T> prop, Prop<T> tProp, DataReader pageReader) {
         // 1. Read the value from the DataReader, if it exists
-        // 2. Else, ropy the value from the template, if it exists
+        // 2. Else, copy the value from the template, if it exists
         // 3. Else, read the value from its 'default' annotation, if it exists
         // 4. Else, set the value to null if it's nullable
         // 5. Else, fail.
