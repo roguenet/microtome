@@ -53,12 +53,12 @@ public final class MicrotomeMgr implements MicrotomeCtx {
         }
     }
 
-    @Override public void registerDataMarshaller (DataMarshaller marshaller) {
+    @Override public synchronized void registerDataMarshaller (DataMarshaller marshaller) {
         _dataMarshallers.put(marshaller.valueClass(), marshaller);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> DataMarshaller<? super T> requireDataMarshaller (Class<T> clazz) {
+    public synchronized <T> DataMarshaller<? super T> requireDataMarshaller (Class<T> clazz) {
         DataMarshaller<? super T> marshaller = (DataMarshaller<T>)_dataMarshallers.get(clazz);
         if (marshaller == null) {
             // if we can't find an exact match, see if we have a handler for a superclass that
