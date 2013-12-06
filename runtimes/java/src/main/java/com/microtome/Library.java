@@ -68,7 +68,7 @@ public class Library implements MicrotomeItem {
             throw new MicrotomeError(
                 "An item with that name already exists [name=" + item.name() + "]");
         } else if (item.parent() != null) {
-            throw new MicrotomeError("Item is aliready in a library [item=" + item + "]");
+            throw new MicrotomeError("Item is already in a library [item=" + item + "]");
         }
 
         setItemParent(item, this);
