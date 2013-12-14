@@ -7,6 +7,7 @@ import com.microtome.Page;
 import com.microtome.core.TypeInfo;
 import com.microtome.core.WritableObject;
 import com.microtome.error.MicrotomeError;
+import com.microtome.prop.ObjectProp;
 import com.microtome.prop.Prop;
 import java.lang.reflect.Constructor;
 import java.util.List;
@@ -38,7 +39,7 @@ public class PageMarshaller extends ObjectMarshaller<Page> {
     @Override public void resolveRefs (MicrotomeMgr mgr, Page value, TypeInfo type) {
         MutablePage page = (MutablePage)value;
         for (Prop prop : page.props()) {
-            if (prop != null && prop.value() != null) {
+            if (prop instanceof ObjectProp && prop.value() != null) {
                 DataMarshaller marshaller = mgr.requireDataMarshaller(
                     prop.valueType().clazz());
                 marshaller.resolveRefs(mgr, prop.value(), prop.valueType());
