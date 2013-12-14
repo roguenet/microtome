@@ -116,7 +116,7 @@ public final class MicrotomeMgr implements MicrotomeCtx {
             addLoadedItems(loadTask);
 
             // Resolve all templated items:
-            // Iterate through the array as many times as it takes to resolve all template-dapendent
+            // Iterate through the array as many times as it takes to resolve all template-dependent
             // pages (some templates may themselves have templates in pendingTemplatePages).
             boolean foundTemplate = true;
             while (foundTemplate) {
