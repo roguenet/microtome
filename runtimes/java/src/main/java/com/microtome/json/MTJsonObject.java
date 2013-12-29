@@ -18,6 +18,10 @@ public class MTJsonObject extends MTJsonElement implements WritableObject {
         _value = value;
     }
 
+    public JsonObject getValue () {
+        return _value;
+    }
+
     @Override public String name () {
         if (_name != null) return _name;
         // if we have no name, default to something sensible and valid, mimicking the built-in names
