@@ -62,7 +62,12 @@ public class MTJsonObject extends MTJsonElement implements WritableObject {
         if (elem == null) {
             throw new MicrotomeError("Value missing! [name=" + name + "]");
         }
-        return elem.getAsInt();
+        try {
+            return elem.getAsInt();
+        } catch (NumberFormatException nfe) {
+            throw new MicrotomeError("Value malformed! [name=" + name + ", value=" +
+                elem.getAsString() + "]");
+        }
     }
 
     @Override public double getNumber (String name) {
@@ -70,7 +75,12 @@ public class MTJsonObject extends MTJsonElement implements WritableObject {
         if (elem == null) {
             throw new MicrotomeError("Value missing! [name=" + name + "]");
         }
-        return elem.getAsDouble();
+        try {
+            return elem.getAsDouble();
+        } catch (NumberFormatException nfe) {
+            throw new MicrotomeError("Value malformed! [name=" + name + ", value=" +
+                elem.getAsString() + "]");
+        }
     }
 
     @Override public String getString (String name) {
